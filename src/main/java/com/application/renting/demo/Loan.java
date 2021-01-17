@@ -1,6 +1,10 @@
 package com.application.renting.demo;
 
+import com.application.renting.demo.controllers.BorrowerController;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Loan {
 
@@ -16,7 +20,8 @@ public class Loan {
 
     public enum loanType {
         ANNUITET,
-        SERIE
+        SERIE,
+        UNKNOWN
     }
 
     public int getApplicationNo() {
@@ -72,17 +77,41 @@ public class Loan {
     }
 
     // Minor change: A loan should have an ID
-    public Loan(List<Borrower> borrowers, int loanAmount, String need, int period, int deductablePeriod, loanType category) {
-        if (!TestIsSSNValid(borrowers, loanAmount, period, deductablePeriod)) {
+    public Loan(List<Integer> borrowerIds, int loanAmount, String need, int period, int deductablePeriod, String category) {
+
+        // Example for validation
+        /*if (!TestIsSSNValid(borrowers, loanAmount, period, deductablePeriod)) {
             throw new IllegalArgumentException("Not a valid loan"); // Should be an argument for each case
+        }*/
+
+        List<Borrower> borrowers = new ArrayList<>();
+
+        // Not an optimal solution for many users.
+        for (Integer i :
+                borrowerIds) {
+            Optional<Borrower> user = BorrowerController.borrowerDAO.get(i);
+            user.ifPresent(borrowers::add);
         }
+
         this.applicationNo = applicationNoCounter++;
         this.borrowers = borrowers;
         this.loanAmount = loanAmount;
         this.need = need;
         this.period = period;
         this.deductablePeriod = deductablePeriod;
-        this.category = category;
+
+        switch (category) {
+            case "annuitet":
+                this.category = loanType.ANNUITET;
+                break;
+            case "serie":
+                this.category = loanType.SERIE;
+                break;
+            default:
+                // Consider throwing exception or debug abnormalities
+                this.category = loanType.UNKNOWN;
+                break;
+        }
     }
 
     /**

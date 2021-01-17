@@ -1,4 +1,6 @@
-package com.application.renting.demo;
+package com.application.renting.demo.responses;
+
+import com.application.renting.demo.Loan;
 
 import java.util.Optional;
 

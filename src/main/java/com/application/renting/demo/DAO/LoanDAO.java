@@ -1,22 +1,26 @@
 package com.application.renting.demo.DAO;
 
+import com.application.renting.demo.controllers.BorrowerController;
+import com.application.renting.demo.responses.ApplicationStatus;
 import com.application.renting.demo.Borrower;
 import com.application.renting.demo.Loan;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class LoanDAO implements DAO<Loan> {
 
-    private List<Loan> loans = new ArrayList<>();
+    private final List<Loan> loans = new ArrayList<>();
 
     public LoanDAO() {
-        List<Borrower> borrowers = new ArrayList<>();
-        borrowers.add(new Borrower("01056000069", "Kari Nordmann"));
-        borrowers.add(new Borrower("01056000301", "Ola Nordmann"));
+        if (BorrowerController.borrowerDAO.getAll().size() == 0) {
+            BorrowerController.borrowerDAO.save(new Borrower("01056000069", "Kari Nordmann"));
+            BorrowerController.borrowerDAO.save(new Borrower("01056000301", "Ola Nordmann"));
+        }
 
-        loans.add(new Loan(borrowers, 2450000, "Vi skal låne penger til........", 300, 12, Loan.loanType.ANNUITET));
+        save(new Loan(new ArrayList<>(Arrays.asList(0,1)), 2450000, "Vi skal låne penger til........", 300, 12, "annuitet"));
     }
 
     @Override
@@ -29,10 +33,9 @@ public class LoanDAO implements DAO<Loan> {
         return loans;
     }
 
-    @Override
-    public int save(Loan loan) {
+    public ApplicationStatus save(Loan loan) {
         loans.add(loan);
-        return loan.getApplicationNo();
+        return new ApplicationStatus(loan.getApplicationNo(), get(loan.getApplicationNo()));
     }
 
     @Override

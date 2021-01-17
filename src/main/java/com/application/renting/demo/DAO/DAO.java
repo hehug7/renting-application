@@ -8,8 +8,6 @@ public interface DAO<T> {
 
     List<T> getAll();
 
-    int save(T t);
-
     int update(T t, String[] params);
 
     int delete(T t);
