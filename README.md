@@ -34,9 +34,7 @@ This is returned by the `LoanController.java`. The `DAO/BorrowerDAO.java` and th
 - LoanController for POST and GET request regarding loans.
 - In the `controller` package is where the Spring controllers are.
 - The `DAO` package contains all data access objects and is now used for non-persistance storage.
-- The `responses` package contains all response objects. 
-
->![Alt text](relative/path/to/img.jpg?raw=true "Title")
+- The `responses` package contains all response objects. `UserStatus.java` for response when creating a user, and `ApplicationStatus.java` for creating an application.
 
 
 ## Changes
