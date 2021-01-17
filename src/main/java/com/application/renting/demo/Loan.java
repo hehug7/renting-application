@@ -14,7 +14,7 @@ public class Loan {
     private int deductablePeriod;
     private loanType category;
 
-    enum loanType {
+    public enum loanType {
         ANNUITET,
         SERIE
     }
@@ -76,7 +76,7 @@ public class Loan {
         if (!TestIsSSNValid(borrowers, loanAmount, period, deductablePeriod)) {
             throw new IllegalArgumentException("Not a valid loan"); // Should be an argument for each case
         }
-        this.applicationNo = ++applicationNoCounter;
+        this.applicationNo = applicationNoCounter++;
         this.borrowers = borrowers;
         this.loanAmount = loanAmount;
         this.need = need;
