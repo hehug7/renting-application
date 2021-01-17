@@ -26,7 +26,7 @@ The application should
 ## System description
 When calling the GET method `/loan?applicationNo=0`, the `LoanController.java` calls `DAO/LoanDAO.java`'s get-method. One loan application is already stored non-peristent inside the `DAO/LoanDAO.java`.
 When receiving this call, the function returns an Optional<Loan>. Whether it is found or not is used by the `ApplicationStatus.java` class to give a response which includes "received" or "unknown" status.
-This is returned to the `LoanController.java`. The `DAO/BorrowerDAO.java` and the `BorrowerController.java` is created to showcase optional features which is relevant in this regard. I have created get and creation endpoints for borrowers.
+This is returned to the `LoanController.java`. The `DAO/BorrowerDAO.java` and the `BorrowerController.java` is created to showcase optional features which is relevant in this regard. I have created get and create endpoints for borrowers.
   
 - Loan is defined in the `Loan.java` class in the path `src/main/java/com.application.renting.demo`. This class is the structure for the loan application.
 - Borrower is defined in the `Borrower.java` class located in the same path as the `Loan.java class`. Defines the structure for a borrower.
